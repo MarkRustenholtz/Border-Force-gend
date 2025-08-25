@@ -757,7 +757,7 @@
         cr += `Véhicule de service : ${state.vehiculeService}\n`;
       }
 
-      cr += `\n.1 - MOYENS / PERSONNES:\n`;
+      cr += `\n1 - MOYENS / PERSONNES:\n`;
       ['train','bus','vl','pl'].forEach(type => {
         const vCount = state.vehicules[type];
         const cvCount = state.cv[type];
