@@ -306,7 +306,13 @@
         <span id="vlCvCount">0</span> CV
         <button class="plusminus" data-type="vl" data-field="cv" data-action="plus">+</button>
       </div>
-      <div style="margin-left:20px;">
+      <div>
+        <label style="margin-left:15px;">Ajouter CV manuellement:
+        <input type="number" id="vlCvManual" class="manual-input" min="0" value="0" />
+        <button id="vlCvAddManualBtn">Ajouter</button>
+      </label>
+    </div>
+    <div style="margin-left:20px;">
         <button class="plusminus" data-type="vl" data-field="cf" data-action="minus">-</button>
         <span id="vlCfCount">0</span> CF
         <button class="plusminus" data-type="vl" data-field="cf" data-action="plus">+</button>
@@ -326,6 +332,12 @@
         <button class="plusminus" data-type="pl" data-field="cv" data-action="minus">-</button>
         <span id="plCvCount">0</span> CV
         <button class="plusminus" data-type="pl" data-field="cv" data-action="plus">+</button>
+      </div>
+      <div>
+        <label style="margin-left:15px;">Ajouter CV manuellement:
+        <input type="number" id="plCvManual" class="manual-input" min="0" value="0" />
+        <button id="plCvAddManualBtn">Ajouter</button>
+      </label>
       </div>
       <div style="margin-left:20px;">
         <button class="plusminus" data-type="pl" data-field="cf" data-action="minus">-</button>
@@ -757,7 +769,7 @@
         cr += `Véhicule de service : ${state.vehiculeService}\n`;
       }
 
-      cr += `\n1 - MOYENS / PERSONNES:\n`;
+      cr += `\n.1 - MOYENS / PERSONNES:\n`;
       ['train','bus','vl','pl'].forEach(type => {
         const vCount = state.vehicules[type];
         const cvCount = state.cv[type];
@@ -895,6 +907,8 @@ state.passeurList.forEach((passeur,i) => {
       // Ajout manuel CV bus/train
       document.getElementById('trainCvAddManualBtn').addEventListener('click', () => addManualCv('train'));
       document.getElementById('busCvAddManualBtn').addEventListener('click', () => addManualCv('bus'));
+      document.getElementById('vlCvAddManualBtn').addEventListener('click', () => addManualCv('vl'));
+      document.getElementById('plCvAddManualBtn').addEventListener('click', () => addManualCv('pl'));
 
       // Champs généraux
       ['siteSelect','dateInput','heureDebutInput','heureFinInput'].forEach(id => {
