@@ -263,6 +263,12 @@
         <span id="trainCfCount">0</span> CF
         <button class="plusminus" data-type="train" data-field="cf" data-action="plus">+</button>
       </div>
+      <div>
+        <label style="margin-left:15px;">Ajouter CF manuellement:
+          <input type="number" id="trainCfManual" class="manual-input" min="0" value="0" />
+          <button id="trainCfAddManualBtn">Ajouter</button>
+        </label>
+      </div>
     </div>
   </div>
 
@@ -289,6 +295,12 @@
         <button class="plusminus" data-type="bus" data-field="cf" data-action="minus">-</button>
         <span id="busCfCount">0</span> CF
         <button class="plusminus" data-type="bus" data-field="cf" data-action="plus">+</button>
+      </div>
+      <div>
+        <label style="margin-left:15px;">Ajouter CF manuellement:
+          <input type="number" id="busCfManual" class="manual-input" min="0" value="0" />
+          <button id="busCfAddManualBtn">Ajouter</button>
+        </label>
       </div>
     </div>
   </div>
@@ -317,6 +329,12 @@
         <span id="vlCfCount">0</span> CF
         <button class="plusminus" data-type="vl" data-field="cf" data-action="plus">+</button>
       </div>
+      <div>
+        <label style="margin-left:15px;">Ajouter CF manuellement:
+        <input type="number" id="vlCfManual" class="manual-input" min="0" value="0" />
+        <button id="vlCfAddManualBtn">Ajouter</button>
+      </label>
+    </div>
     </div>
   </div>
 
@@ -337,12 +355,18 @@
         <label style="margin-left:15px;">Ajouter CV manuellement:
         <input type="number" id="plCvManual" class="manual-input" min="0" value="0" />
         <button id="plCvAddManualBtn">Ajouter</button>
-      </label>
+        </label>
       </div>
       <div style="margin-left:20px;">
         <button class="plusminus" data-type="pl" data-field="cf" data-action="minus">-</button>
         <span id="plCfCount">0</span> CF
         <button class="plusminus" data-type="pl" data-field="cf" data-action="plus">+</button>
+      </div>
+      <div>
+        <label style="margin-left:15px;">Ajouter CF manuellement:
+        <input type="number" id="plCfManual" class="manual-input" min="0" value="0" />
+        <button id="plCfAddManualBtn">Ajouter</button>
+        </label>
       </div>
     </div>
   </div>
@@ -637,6 +661,19 @@
       debounceSave();
     }
 
+    function addManualCf(type) {
+      const input = document.getElementById(type+'CfManual');
+      const val = parseInt(input.value);
+      if(isNaN(val) || val < 1) {
+        alert('Veuillez saisir un nombre entier supérieur à 0.');
+        return;
+      }
+      state.cf[type] += val;
+      input.value = 0;
+      updateUI();
+      debounceSave();
+    }
+
     // Rendu liste ESI
     function renderEsiList() {
       const container = document.getElementById('esiList');
@@ -909,6 +946,11 @@ state.passeurList.forEach((passeur,i) => {
       document.getElementById('busCvAddManualBtn').addEventListener('click', () => addManualCv('bus'));
       document.getElementById('vlCvAddManualBtn').addEventListener('click', () => addManualCv('vl'));
       document.getElementById('plCvAddManualBtn').addEventListener('click', () => addManualCv('pl'));
+
+      document.getElementById('trainCfAddManualBtn').addEventListener('click', () => addManualCf('train'));
+      document.getElementById('busCfAddManualBtn').addEventListener('click', () => addManualCf('bus'));
+      document.getElementById('vlCfAddManualBtn').addEventListener('click', () => addManualCf('vl'));
+      document.getElementById('plCfAddManualBtn').addEventListener('click', () => addManualCf('pl'));
 
       // Champs généraux
       ['siteSelect','dateInput','heureDebutInput','heureFinInput'].forEach(id => {
